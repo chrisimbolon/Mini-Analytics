@@ -7,7 +7,7 @@ services:
       dockerfile: backend.Dockerfile
     container_name: analytics-backend
     ports:
-      - "8000:8000"
+      - "8010:8000"
     volumes:
       - ./backend:/app/backend 
       - ./events.db:/app/events.db  #  Persist DB
