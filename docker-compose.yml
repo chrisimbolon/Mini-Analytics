@@ -21,6 +21,8 @@ services:
     build:
       context: .
       dockerfile: frontend.Dockerfile
+      args:
+        VITE_API_URL: "/mini-analytics/api"
     container_name: analytics-frontend
     ports:
       - "3003:80"
