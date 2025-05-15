@@ -20,19 +20,14 @@ jobs:
           chmod 600 ~/.ssh/github-actions-key
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Generate .env file
-        run: echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
-
-      - name: Upload .env to droplet
-        run: |
-          scp -i ~/.ssh/github-actions-key .env ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/apps/Mini-Analytics/frontend/.env
-
       - name: Deploy to DigitalOcean
         run: |
-          ssh -i ~/.ssh/github-actions-key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
+          ssh -i ~/.ssh/github-actions-key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
             set -ex
             cd /home/apps/Mini-Analytics
             git pull origin main
+            echo "🔹 Updating environment variables..."
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+            cp .env frontend/.env
             docker compose down
             docker compose up -d --build
-EOF
