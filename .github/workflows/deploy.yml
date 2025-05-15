@@ -1,0 +1,34 @@
+name: 🚀 Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to DigitalOcean
+        run: |
+          ssh -i ~/.ssh/github-actions-key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
+            set -ex
+            cd /home/apps/Mini-Analytics
+            git pull origin main
+            docker compose down
+            docker compose up -d --build
+
+
+
+
