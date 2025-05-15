@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from backend import models
 from backend.database import engine, get_db
-from backend.schemas import EventCreate  # ✅ Pydantic model
+from backend.schemas import EventCreate  
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func
