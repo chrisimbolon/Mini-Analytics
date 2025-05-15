@@ -7,13 +7,19 @@ services:
       dockerfile: backend.Dockerfile
     container_name: analytics-backend
     ports:
-      - "8010:8000"
+      - "8000:8000"
     volumes:
       - ./backend:/app/backend 
       - ./events.db:/app/events.db  #  Persist DB
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app             #  Enabling absolute imports
+
+    networks:
+      default:
+        external:
+          name:  caddy-net
+
 
   frontend:
     build:
@@ -24,3 +30,10 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    
+    networks:
+      default:
+        external:
+          name:  caddy-net
+  
+
