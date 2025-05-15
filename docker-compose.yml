@@ -22,16 +22,12 @@ services:
       context: .
       dockerfile: frontend.Dockerfile
       args:
-        VITE_API_URL: "/mini-analytics/api"
+        VITE_API_URL: ${VITE_API_URL}
     container_name: analytics-frontend
     ports:
       - "3003:80"
     depends_on:
       - backend
-    environment:
-      - VITE_API_URL=${VITE_API_URL}
-    env_file:
-      - .env
     networks:
       - caddy-net
 
