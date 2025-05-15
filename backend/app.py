@@ -8,8 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func
 
 
-
-app = FastAPI()
+app = FastAPI(root_path="/mini-analytics/api")
+# app = FastAPI()
 
 #  frontend (Vite) connecting  to FastAPI
 app.add_middleware(
