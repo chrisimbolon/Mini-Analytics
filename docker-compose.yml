@@ -28,6 +28,10 @@ services:
       - "3003:80"
     depends_on:
       - backend
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    env_file:
+      - .env
     networks:
       - caddy-net
 
