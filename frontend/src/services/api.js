@@ -1,7 +1,8 @@
 
 const API_BASE = "http://localhost:8000";
-// Inside frontend/src/api.ts or wherever you're fetching
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "mini-analytics/api";
 
 export const fetchAnalytics = async () => {
   const res = await fetch(`${API_BASE}/analytics`);
