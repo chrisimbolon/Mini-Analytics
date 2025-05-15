@@ -28,9 +28,6 @@ jobs:
             git pull origin main
             echo "🔹 Updating environment variables..."
             echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+            cp .env frontend/.env
             docker compose down
             docker compose up -d --build
-
-
-
-
