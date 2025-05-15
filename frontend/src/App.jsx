@@ -28,7 +28,7 @@ function App() {
   // sending a new random mock event
   const sendMockEvent = async () => {
     await postMockData(); // re-use the existing function
-    await loadAnalytics(); // refresh UI
+    await loadAnalytics(); // refreshing UI
   };
 
   if (loading) return <p>Loading analytics...</p>;
