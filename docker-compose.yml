@@ -9,17 +9,13 @@ services:
     ports:
       - "8010:8000"
     volumes:
-      - ./backend:/app/backend 
-      - ./events.db:/app/events.db  #  Persist DB
+      - ./backend:/app/backend
+      - ./events.db:/app/events.db
     environment:
       - PYTHONUNBUFFERED=1
-      - PYTHONPATH=/app             #  Enabling absolute imports
-
+      - PYTHONPATH=/app
     networks:
-      default:
-        external:
-          name:  caddy-net
-
+      - caddy-net
 
   frontend:
     build:
@@ -30,10 +26,9 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-    
     networks:
-      default:
-        external:
-          name:  caddy-net
-  
+      - caddy-net
 
+networks:
+  caddy-net:
+    external: true
