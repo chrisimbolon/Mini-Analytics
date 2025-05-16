@@ -35,4 +35,4 @@ jobs:
             git pull origin main
             VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose down
             VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose up -d --build
-EOF
+          EOF
