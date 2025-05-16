@@ -32,6 +32,7 @@ jobs:
           ssh -i ~/.ssh/github-actions-key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
             set -ex
             cd /home/apps/Mini-Analytics
+            git stash push -m "Stash before deployment" || true
             git pull origin main
             VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose down
             VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose up -d --build
