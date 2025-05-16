@@ -20,12 +20,12 @@ jobs:
           chmod 600 ~/.ssh/github-actions-key
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Generate .env file
-        run: echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+      # - name: Generate .env file
+      #   run: echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
 
-      - name: Upload .env to droplet
-        run: |
-          scp -i ~/.ssh/github-actions-key .env ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/apps/Mini-Analytics/frontend/.env
+      # - name: Upload .env to droplet
+      #   run: |
+      #     scp -i ~/.ssh/github-actions-key .env ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/apps/Mini-Analytics/frontend/.env
 
       - name: Deploy to DigitalOcean
         run: |
@@ -34,6 +34,7 @@ jobs:
             cd /home/apps/Mini-Analytics
             git stash push -m "Stash before deployment" || true
             git pull origin main
-            VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose down
-            VITE_API_URL=${{ secrets.VITE_API_URL }} docker compose up -d --build
+            export VITE_API_URL=${{ secrets.VITE_API_URL }}
+            docker compose down
+            docker compose up -d --build
           EOF
