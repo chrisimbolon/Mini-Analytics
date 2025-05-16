@@ -1,8 +1,14 @@
 
 // const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-const API_BASE = import.meta.env.VITE_API_URL || "/mini-analytics/api";
-// const API_BASE = "https://chrisimbolon.dev/mini-analytics/api";
+// const API_BASE = import.meta.env.VITE_API_URL || "/mini-analytics/api";
+// Automatically switch between local and prod
+const API_BASE =
+  import.meta.env.PROD
+    ? "https://chrisimbolon.dev/mini-analytics/api" // <-- HARD-CODED PROD URL
+    : import.meta.env.VITE_API_URL || "http://localhost:8000"; // <-- LOCAL
+
+
 
 export const fetchAnalytics = async () => {
   const res = await fetch(`${API_BASE}/analytics`);
